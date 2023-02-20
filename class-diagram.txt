@@ -1,0 +1,53 @@
+
+entity LoginHandlerManagerStateController
+    login(credentials: Credentials) -> User
+
+entity User
+    id: UserId
+    username: string
+
+entity Seller : User
+    createProduct(info: ProductInfo)
+    editProduct(id: ProductId, info: Product)
+    deleteProduct(id: ProductId)
+
+entity Customer : User
+    queryProducts(query: ProductQuery) -> QueryProductInfo[]
+    viewProduct(id: ProductId) -> Product
+    buyProduct(id: ProductId) -> Transaction
+
+entity Transaction
+
+struct Credentials
+    username: string
+    password: string
+
+struct Product
+    id: ProductId
+    title: string
+    description: string
+    price: float
+    image: Image[]
+
+struct ProductInfo
+    title: string
+    description: string
+    price: float
+    image: Image[]
+
+struct ProductQuery
+    search: string
+    priceRange: Range<float>
+    distanceFromBuyer: Km<float>
+    sortParameter: Relevance | Price | Distance
+    sortOrder: Ascending | Descending
+
+struct QueryProductInfo
+    title: string
+    description: string
+    price: float
+    image: Image
+
+struct Image
+    url: string
+
